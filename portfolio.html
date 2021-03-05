@@ -4,6 +4,12 @@
 <head>
 	<meta name="Alex(Chenke) Bai's Home Page" content="Alex Bai(Bai)" >
 
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
 	<style type="text/css">
 		.centerOperation
 		{
@@ -19,6 +25,24 @@
 <title> ALEX(CHENKE) BAI'S PROTFOLIO PAGE </title>
 
 <body>
+
+	<link href="cover.css" rel="stylesheet">
+  </head>
+  <body class="d-flex h-100 text-center text-white bg-dark">
+    
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+  <header class="mb-auto">
+    <div>
+      <h3><a class = "navbar-brand" href = "homePage.html">Chenke Bai</a></h3>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="nav-link active" aria-current="page" href="homePage.html">Home</a>
+        <a class="nav-link" href="resume.html">My Resume</a>
+        <a class="nav-link" href="portfolio.html">My Portfolio</a>
+        <a class="nav-link" href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
 	<h>
 		Site Under Construction...
 	</h>
@@ -35,25 +59,37 @@
 		Currently, there are two repositories on this page, the "chenkebai.github.io" is storing all INFO 3402 relate work, so far majority of the work is focused on HTML and JavaScript. The Info 2022 Final Project is focusing on simple data mining and visualization using python presented by Jupyter Notebook. (There will be more project updates in the future.)
 	</p>
 
-	<ul>
-		<li>
-			<a href= "https://github.com/chenkebai/chenkebai.github.io">Chenke's INFO 3402 Class Work(HTML & JavaScript) </a>
-		</li>
-		
-		<li>
-			<a href= "https://github.com/chenkebai/Steam-Data">Info 2022 Final Project(Jupyter Notebook & Python) </a>
-		</li>
-	</ul>
+	<div class="row row-cols-1 row-cols-md-3 g-4">
+  <div class="col">
+    <div class="card h-100">
+      <img src="https://thumbs.dreamstime.com/z/html-css-js-icon-set-web-development-logo-javascript-programming-symbol-154897294.jpg" class="card-img-top" alt="htmlatall">
+      <div class="card text-white bg-dark mb-3">
+        <h5 class="card-title">INFO 3402 HTML/CSS/JavaScript</h5>
+        <p class="card-text">Chenke's INFO 3402 Class Work & Projects(Github Page)</p>
+        <a href="https://github.com/chenkebai/chenkebai.github.io" class="btn btn-primary">Github 3402</a>
+      </div>
+    </div>
+</div>
+  <div class="col">
+    <div class="card h-100">
+      <img src="https://cdn.cloudflare.steamstatic.com/store/home/store_home_share.jpg" class="card-img-top" alt="steambackg">
+      <div class="card text-white bg-dark mb-3">
+        <h5 class="card-title">INFO 2201 (Python/Steam API/Pandas)</h5>
+        <p class="card-text">Chenke's INFO 2201 final Project(Github Page) Content includes uses of data mining using API and JSON, numpy function, Pandas library, seaborn plot library, etc.</p>
 
-	<header>
-      <nav>
-        <ul>
-          <li><a href="homePage.html">Home</a></li>
-          <li><a href="resume.html">Chenke(Alex)'s Resume</a></li>
-          <li><a href="portfolio.html">Chenke(Alex)'s Portfolio</a></li>
-          <li><a href="contact.html">Contact</a></li>
-         </ul>
-      </nav>
-    </header>
+        <a href="https://github.com/chenkebai/Steam-Data" class="btn btn-primary">Github 2201</a>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card h-100">
+      <img src="https://img1.pnghut.com/10/16/19/7Em4VxBs9K/data-text-learning-analytics-label.jpg" class="card-img-top" alt="comming soon">
+      <div class="card bg-dark text-light">
+        <h5 class="card-title">Info 3401</h5>
+        <p class="card-text">The class work and projects from Class Info 3401 </p>
+      </div>
+    </div>
+  </div>
+</div>
 
 </body>
