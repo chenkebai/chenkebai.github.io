@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <style type="text/css">
+        .centerOperation
+        {
+            text-align: center;
+        }
+        .paragraphFontSize
+        {
+            font-size:160%;
+        }
+    </style>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+
+<h1 class="centerOperation"> Registered Voters in Boulder CO </h1>
+
+<canvas id="myChart" width="350" height="167"></canvas>
+<script>
+var ctx = document.getElementById('myChart').getContext('2d');
+
+var myChart = new Chart(ctx, {
+    type: 'doughnut',
+    title: {display: true, text: 'Custom Chart Title'},
+    data: {
+        labels: ['Republican', 'Democratic', 'Libertarian', 'Green', 'American Constitution', 'Unity'],
+        datasets: [{
+            label: '# of Registered Votes',
+            data: [36302, 96319, 2520, 1183, 305, 47],
+            backgroundColor: [
+                'rgba(255, 9, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+</script>
+
+<h1 class ="centerOperation"> Improvement Over Chart 1 </h1>
+<p class="paragraphFontSize">
+    The improvemtn based on the first graph is that I changed the mode of the plot to a DoughnutChart that helps visualize the party that has lower number of registered voters. This DoughnutChart also added the legend that allows much clear visualization.
+</p>
+
+<div class = "centerOperation">
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <li class="page-item">
+          <a class="page-link" href="chart_1.html" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        <li class="page-item"><a class="page-link" href="chart_1.html">1</a></li>
+        <li class="page-item"><a class="page-link" href="chart_2.html">2</a></li>
+        <li class="page-item"><a class="page-link" href="chart_3.html">3</a></li>
+        <li class="page-item">
+          <a class="page-link" href="chart_3.html" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+</div>
+
+</html>
