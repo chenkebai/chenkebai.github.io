@@ -18,17 +18,20 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
+<body>
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
 
-<h1 class="centerOperation"> Registered Voters in Boulder CO </h1>
+<h1 class="centerOperation"> Registered Voters</h1>
 
 <canvas id="myChart" width="350" height="167"></canvas>
+
+<button id="changeCircleSize">Semi/Full Circle</button>
 <script>
 var ctx = document.getElementById('myChart').getContext('2d');
-
 var myChart = new Chart(ctx, {
     type: 'doughnut',
-    title: {display: true, text: 'Custom Chart Title'},
+    title: {display: true, text: 'Registered Voters in Boulder CO 2017'},
     data: {
         labels: ['Republican', 'Democratic', 'Libertarian', 'Green', 'American Constitution', 'Unity'],
         datasets: [{
@@ -54,6 +57,7 @@ var myChart = new Chart(ctx, {
         }]
     },
     options: {
+        
         scales: {
             yAxes: [{
                 ticks: {
@@ -63,7 +67,25 @@ var myChart = new Chart(ctx, {
         }
     }
 });
+
+document.getElementById('changeCircleSize').addEventListener('click', function() {
+            if (window.myDoughnut.options.circumference === Math.PI) {
+                window.myDoughnut.options.circumference = 2 * Math.PI;
+                window.myDoughnut.options.rotation = -Math.PI / 2;
+            } else {
+                window.myDoughnut.options.circumference = Math.PI;
+                window.myDoughnut.options.rotation = -Math.PI;
+            }
+
+            window.myDoughnut.update();
+        });
 </script>
+</body>
+
+<h1 class ="centerOperation"> Improvement Over Chart 2 </h1>
+<p class="paragraphFontSize">
+    The improvemtn based on the second graph is that I added the function that allows the full circle graph to change in semi-circle graph shape by clicking the button.
+</p>
 
 <div class = "centerOperation">
     <nav aria-label="Page navigation example">
@@ -84,5 +106,7 @@ var myChart = new Chart(ctx, {
       </ul>
     </nav>
 </div>
+
+
 
 </html>
