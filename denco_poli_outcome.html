@@ -33,7 +33,7 @@
             data: {
                 labels: ['Arrest made', 'Citation Issued', 'Warning Issued'],
                 datasets: [{
-                    label: 'Denver County Nov 2017 Policing Data',
+                    label: 'Category Count',
                     backgroundColor: ['rgb(255, 99, 132)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)'],
                     borderColor: ['rgb(255, 99, 132)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)'],
                     data: [data_from_file["Arrest made"], data_from_file["Citation Issued"], data_from_file["Warning Issued"]],
@@ -64,7 +64,12 @@
 <body>
     <h1 class = "centerOperation"> Data Filtering & Aggregation Information </h1>
     <p class = "paragraphFontSize">
-        In this assignment I computed the total arrest made(include 985 arrest made), total citation issued(include 1065 citation issued), and the total warning issued(include 732 warning issued) from Nov 2017 Denver Policing Data set. For data filtering I did reindexing the pandas data frame's index to datatime which includs exact date and exact time of the day. I also transform the orginal pandas data frame into geopandas data frame. Although I did not use that in this assignment(I attempet to use it, but can't figure out how to puch all the data from Jupyter Note book into JS code), I will use that in the future assignment. I will show my python code of my attempt.
+        In this assignment, I computed the total arrest made(include 985 arrests made), total citation issued(include 1065 citations issued), and the total warning issued(include 732 warnings issued) from Nov 2017 Denver Policing Data set. For data filtering, I did reindex the pandas' data frame's index to datatime which includes the exact date and exact time of the day. I also transform the original pandas data frame into a pandas data frame. Although I did not use that in this assignment(I attempted to use it, but can't figure out how to push all the data from Jupyter Notebook into JS code), I will use that in the future assignment. I will show the python code of my attempt.
+    </p>
+
+
+    <p class="paragraphFontSize">
+        The finding on this data visualization would be, police tend to use citation a lot more than warnings. I guess the reason is that it makes people realize their mistake more seriously, especially in the downtown area where there are more people around that place. Police tend to be more serious. I'm surprised that there is a lot more arrest than warnings. In my future study, I will try to answer why these arrests happened and in what places. I will also try to find out if the number of citations issued is related to the traffic stop.
     </p>
 
     <h1 class = "centerOperation"> Python Code </h1>
