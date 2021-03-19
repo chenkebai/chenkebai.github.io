@@ -21,8 +21,8 @@ $.getJSON("Denco_poli_outcome.json", function(data_from_file){
             labels: ['Arrest made', 'Citation Issued', 'Warning Issued'],
             datasets: [{
                 label: 'Denver County Nov 2017 Policing Data',
-                backgroundColor: 'rgb(255, 99, 132)',
-                borderColor: 'rgb(255, 99, 132)',
+                backgroundColor: ['rgb(255, 99, 132)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)'],
+                borderColor: ['rgb(255, 99, 132)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)'],
                 data: [data_from_file["Arrest made"], data_from_file["Citation Issued"], data_from_file["Warning Issued"]],
                 barThickness: 10,
             }]
