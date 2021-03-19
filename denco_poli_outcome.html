@@ -4,45 +4,69 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
 
-<script type="text/javascript">
+<head>
 
-$.getJSON("Denco_poli_outcome.json", function(data_from_file){
-
-    var ctx = document.getElementById('myChart').getContext('2d');
-    console.log("hey you got data")
-    console.log(data_from_file)
-
-    var chart = new Chart(ctx, {
-        // The type of chart we want to create
-        type: 'bar',
-
-        // The data for our dataset
-        data: {
-            labels: ['Arrest made', 'Citation Issued', 'Warning Issued'],
-            datasets: [{
-                label: 'Denver County Nov 2017 Policing Data',
-                backgroundColor: ['rgb(255, 99, 132)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)'],
-                borderColor: ['rgb(255, 99, 132)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)'],
-                data: [data_from_file["Arrest made"], data_from_file["Citation Issued"], data_from_file["Warning Issued"]],
-                barThickness: 10,
-            }]
-        },
-
-        // Configuration options go here
-        options: {
-        scales: {
-                yAxes: [{
-                    display: true,
-                    stacked: true,
-                    ticks: {
-                        min: 0, // minimum value
-                        max: 1200 // maximum value
-                    }
-                }]
+    <style type="text/css">
+            .centerOperation
+            {
+                text-align: center;
             }
-        }
-    });
+            .paragraphFontSize
+            {
+                font-size:160%;
+            }
+    </style>
 
-})
+    <script type="text/javascript">
 
-</script>
+    $.getJSON("Denco_poli_outcome.json", function(data_from_file){
+
+        var ctx = document.getElementById('myChart').getContext('2d');
+        console.log("hey you got data")
+        console.log(data_from_file)
+
+        var chart = new Chart(ctx, {
+            // The type of chart we want to create
+            type: 'bar',
+
+            // The data for our dataset
+            data: {
+                labels: ['Arrest made', 'Citation Issued', 'Warning Issued'],
+                datasets: [{
+                    label: 'Denver County Nov 2017 Policing Data',
+                    backgroundColor: ['rgb(255, 99, 132)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)'],
+                    borderColor: ['rgb(255, 99, 132)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)'],
+                    data: [data_from_file["Arrest made"], data_from_file["Citation Issued"], data_from_file["Warning Issued"]],
+                    barThickness: 7,
+                }]
+            },
+
+            // Configuration options go here
+            options: {
+            scales: {
+                    yAxes: [{
+                        display: true,
+                        stacked: true,
+                        ticks: {
+                            min: 0, // minimum value
+                            max: 1200 // maximum value
+                        }
+                    }]
+                }
+            }
+        });
+
+    })
+
+    </script>
+</head>
+
+<body>
+    <h1 class = "centerOperation"> Data Filtering & Aggregation Information </h1>
+    <p class = "paragraphFontSize">
+        In this assignment I computed the total arrest made, total citation issued, and the total warning issued from Nov 2017 Denver Policing Data set. For data filtering I did reindexing the pandas data frame's index to datatime which includs exact date and exact time of the day. I also transform the orginal pandas data frame into geopandas data frame. Although I did not use that in this assignment(I attempet to use it, but can't figure out how to puch all the data from Jupyter Note book into JS code), I will use that in the future assignment. I will show my python code of my attempt.
+    </p>
+</body> 
+
+
+
