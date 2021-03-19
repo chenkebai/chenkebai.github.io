@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta name="Dever Policing GeoPlot" content="GeoPlot">
+
+		<!-- Required meta tags -->
+	    <meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	    <!-- Bootstrap CSS -->
+	    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+	    <canvas id="myChart"></canvas>
+
+		<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
+
+		<!-- Altair Scripts -->
+		<script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  		<script src="https://cdn.jsdelivr.net/npm/vega-lite@4"></script>
+  		<script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+
+  		<!--- Flask Loader -->
+  		<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+ 		<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+
+		<style type="text/css">
+	        .centerOperation
+	        {
+	            text-align: center;
+	        }
+	        .paragraphFontSize
+	        {
+	            font-size:160%;
+	        }
+	    </style>
+	</head>
+
+	<body>
+		<h1 class="centerOperation"> Denver Policing Data Geopplot </h1>
+
+		<div id="map" style="height: 350px;"></div>
+
+		<script type="text/javascript">
+		  // The first parameter are the coordinates of the center of the map
+		  // The second parameter is the zoom level
+		  var map = L.map('map').setView([40.712, -74.006], 11);
+		  
+		  // {s}, {z}, {x} and {y} are placeholders for map tiles
+		  // {x} and {y} are the x/y of where you are on the map
+		  // {z} is the zoom level
+		  // {s} is the subdomain of cartodb
+		    var layer = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+		    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
+		  });
+		  
+		  // Now add the layer onto the map
+		  map.addLayer(layer);
+		  // It even opens up a popup when you click it!
+			L.marker([39.740154, -104.912430]).addTo(map)
+			  .bindPopup("<strong>Arrest Made</strong>").openPopup();
+		</script>
+
+		<p class="paragraphFontSize">
+
+
+
+</html>
