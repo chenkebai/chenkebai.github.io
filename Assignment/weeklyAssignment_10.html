@@ -30,10 +30,12 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>
-					<h1> Altair Showcase </h1>
-					<p style = "font-weight:bold;">Using Altair</p>
-					<img src = "https://miro.medium.com/max/1876/1*kA5O0LCDM44C8Tnp_DUCfQ.png">
+				<section data-auto-animate>
+				  <h1>Python Plot Showcase</h1>
+				</section>
+				<section data-auto-animate>
+				  <h1>Python Plot Showcase</h1>
+				  <h1>Editor Chenke Bai</h1>
 				</section>
 				<section>
 					<section>
@@ -59,9 +61,9 @@
 						<h3> #2 Iowa Electricty Kinds </h3>
 						<img src = "https://chenkebai.github.io/Assignment/iowaElectricty.png">
 					</section>
-					<section>
+					<section data-auto-animate>
 						<p style = "font-weight:bold;">Code Example</p>
-						<pre><code data-trim data-noescape>
+						<pre data-id="code-animation"><code data-trim data-noescape>
 							source = data.iowa_electricity()
 
 							alt.Chart(source).mark_area().encode(
@@ -73,20 +75,26 @@
 					</section>
 				</section>
 				<section>
-					<h3> Code Example </h3>
-					<pre><code data-trim data-noescape>
-						def subtraction(a,b):
-							result = a-b
-							return result
-					</code></pre>
+					<section>
+							<h3> My Denco Policing Data (Arrest) </h3>
+							<img src = "https://chenkebai.github.io/Assignment/dencoArrestLocation.png">
+					</section>
+					<section>
+							<p style = "font-weight:bold;">Code Example</p>
+							<pre><code data-trim data-noescape>
+								denco_poli_gdf = gpd.GeoDataFrame(denco_poli_gdf, geometry = geometry_s)
+								denco_poli_arrest_3857_gdf = denco_poli_gdf.to_crs("EPSG:3857")
+								f,ax = plt.subplots(figsize=(15,10))
+								denco_poli_arrest_3857_gdf.plot(ax=ax,markersize='arrest_made',color='r')
+								contextily.add_basemap(ax,source=contextily.providers.OpenStreetMap.Mapnik)
+							</code></pre>
+					</section>
 				</section>
-				<section>
-					<h3> Animation Example <h3>
-						<p class="fragment">Fade in</p>
-						<p class="fragment fade-out">Fade out</p>
-						<p class="fragment highlight-red">Highlight red</p>
-						<p class="fragment fade-in-then-out">Fade in, then out</p>
-						<p class="fragment fade-up">Slide up while fading in</p>
+				<section data-auto-animate>
+				  <div data-id="box" style="height: 50px; background: salmon;">Thank You!</div>
+				</section>
+				<section data-auto-animate>
+				  <div data-id="box" style="height: 350; background: blue;"><img src = "https://media1.giphy.com/media/mRoCaQMjS6xvgabiho/giphy.gif"></div>
 				</section>
 			</div>
 		</div>
