@@ -53,12 +53,24 @@
 							).interactive()
 						</code></pre>
 					</section>
-					<p class="paragraphFontSize">
-						In this this graph 
 				</section>
 				<section>
-					<h3> My expression in a gif </h3>
-					<img src = "https://media2.giphy.com/media/YQitE4YNQNahy/giphy.gif?cid=ecf05e47folcqveun1o8jwjln9zouq5bjhk3hkkxgeyi47c6&rid=giphy.gif">
+					<section>
+						<h3> #2 Iowa Electricty Kinds </h3>
+						<img src = "https://chenkebai.github.io/Assignment/iowaElectricty.png">
+					</section>
+					<section>
+						<p style = "font-weight:bold;">Code Example</p>
+						<pre><code data-trim data-noescape>
+							source = data.iowa_electricity()
+
+							alt.Chart(source).mark_area().encode(
+							    x="year:T",
+							    y="net_generation:Q",
+							    color="source:N"
+							)
+						</code></pre>
+					</section>
 				</section>
 				<section>
 					<h3> Code Example </h3>
