@@ -189,11 +189,11 @@
 			<section>
 				<section>
 					<h3> Scatter plot </h3>
-					<div id="vis"></div>
+					<div id="vis2"></div>
 						<script type="text/javascript">
 						
 							var spec = {
-										  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+										  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
 										  "config": {
 										    "view": {
 										    	"continuousHeight": 600,
@@ -224,7 +224,7 @@
 						
 							var opt = {"renderer": "canvas", "actions": false};  /* Options for the embedding */
 						
-							vegaEmbed("#vis", spec, opt);
+							vegaEmbed("#vis2", spec, opt);
 						
 						</script>
 				</section>
@@ -272,7 +272,21 @@
 			</section>
 		</div>
 	</div>
-
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/reveal.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/plugin/notes/notes.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/plugin/markdown/markdown.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/plugin/highlight/highlight.min.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+				slideNumber: 'c/t',
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
 </body>
 
 </html>
