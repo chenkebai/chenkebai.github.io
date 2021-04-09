@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- Loading Vega Dataset -->
+	<script src="https://cdn.jsdelivr.net/npm/vega@5.19.1"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vega-lite@5.0.0"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vega-embed@6.15.1"></script>
+	<!-- Theme used for charts -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/reset.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/reveal.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/theme/moon.min.css" id="theme">
+	<!-- Theme used for syntax highlighted code -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/plugin/highlight/monokai.min.css" id="highlight-theme">
+	<title>Weekly Assignment 11</title>
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<section data-auto-animate>
+				<h1>Altair Plot Showcase</h1>
+			</section>
+			<section data-auto-animate>
+				<h1>Altair Plot Showcase</h1>
+				<h1>Editor Chenke Bai</h1>
+			</section>
+			<section>
+				<section>
+					<h3>US Air Port in each state</h3>
+					<div id="vis"></div>
+					<script type="text/javascript">
+						var spec = {
+									"$schema": "https://vega.github.io/schema/vega/v5.json",
+									  "background": "white",
+									  "padding": 5,
+									  "width": 500,
+									  "height": 300,
+									  "title": {"text": "Number of airports in US", "frame": "group"},
+									  "style": "cell",
+									  "data": [
+									    {
+									      "name": "source_0",
+									      "url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/us-10m.json",
+									      "format": {"feature": "states", "type": "topojson"}
+									    },
+									    {
+									      "name": "source_1",
+									      "url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/airports.csv",
+									      "format": {"type": "csv", "delimiter": ","},
+									      "transform": [
+									        {
+									          "type": "aggregate",
+									          "groupby": ["state"],
+									          "ops": ["mean", "mean", "count"],
+									          "fields": ["latitude", "longitude", null],
+									          "as": ["latitude", "longitude", "count"]
+									        },
+									        {
+									          "type": "geojson",
+									          "fields": ["longitude", "latitude"],
+									          "signal": "layer_1_geojson_0"
+									        },
+									        {
+									          "type": "geopoint",
+									          "projection": "projection",
+									          "fields": ["longitude", "latitude"],
+									          "as": ["layer_1_x", "layer_1_y"]
+									        },
+									        {
+									          "type": "filter",
+									          "expr": "isValid(datum[\"count\"]) && isFinite(+datum[\"count\"])"
+									        }
+									      ]
+									    }
+									  ],
+									  "projections": [
+									    {
+									      "name": "projection",
+									      "size": {"signal": "[width, height]"},
+									      "fit": {"signal": "[data('source_0'), layer_1_geojson_0]"},
+									      "type": "albersUsa"
+									    }
+									  ],
+									  "marks": [
+									    {
+									      "name": "layer_0_marks",
+									      "type": "shape",
+									      "style": ["geoshape"],
+									      "from": {"data": "source_0"},
+									      "encode": {
+									        "update": {"fill": {"value": "lightgray"}, "stroke": {"value": "white"}}
+									      },
+									      "transform": [{"type": "geoshape", "projection": "projection"}]
+									    },
+									    {
+									      "name": "layer_1_marks",
+									      "type": "symbol",
+									      "style": ["circle"],
+									      "from": {"data": "source_1"},
+									      "encode": {
+									        "update": {
+									          "opacity": {"value": 0.7},
+									          "fill": {"value": "steelblue"},
+									          "tooltip": {
+									            "signal": "{\"state\": ''+datum[\"state\"], \"count\": format(datum[\"count\"], \"\")}"
+									          },
+									          "x": {"field": "layer_1_x"},
+									          "y": {"field": "layer_1_y"},
+									          "size": {"scale": "size", "field": "count"},
+									          "shape": {"value": "circle"}
+									        }
+									      }
+									    }
+									  ],
+									  "scales": [
+									    {
+									      "name": "size",
+									      "type": "linear",
+									      "domain": {"data": "source_1", "field": "count"},
+									      "range": [0, 361],
+									      "zero": true
+									    }
+									  ],
+									  "legends": [
+									    {
+									      "title": "Number of Airports",
+									      "size": "size",
+									      "gradientLength": {"signal": "clamp(height, 64, 200)"},
+									      "symbolType": "circle",
+									      "encode": {
+									        "symbols": {
+									          "update": {
+									            "fill": {"value": "steelblue"},
+									            "opacity": {"value": 0.7},
+									            "stroke": {"value": "transparent"}
+									          }
+									        }
+									      }
+									    }
+									  ]
+									};
+									var opt = {"renderer": "canvas", "actions": false};  /* Options for the embedding */
+		
+									vegaEmbed("#vis", spec, opt);			
+					</script>
+				</section>
+				<section>
+					<p style = "font-weight:bold;">Code Example</p>
+						<pre><code data-trim data-noescape>
+							# US Air port Data
+							airports = data.airports.url
+							states = alt.topo_feature(data.us_10m.url, feature='states')
+
+							# US states background
+							background = alt.Chart(states).mark_geoshape(
+							    fill='lightgray',
+							    stroke='white'
+							).properties(
+							    width=500,
+							    height=300
+							).project('albersUsa')
+
+							# airport positions on background
+							points = alt.Chart(airports).transform_aggregate(
+							    latitude='mean(latitude)',
+							    longitude='mean(longitude)',
+							    count='count()',
+							    groupby=['state']
+							).mark_circle().encode(
+							    longitude='longitude:Q',
+							    latitude='latitude:Q',
+							    size=alt.Size('count:Q', title='Number of Airports'),
+							    color=alt.value('steelblue'),
+							    tooltip=['state:N','count:Q']
+							).properties(
+							    title='Number of airports in US'
+							)
+
+							background + points
+						</code></pre>
+				</section>
+				<section>
+					<p style = "font-weight:bold;">Interpretation of visualization</p>
+					<p>
+						This is a layered geographic visualization that shows the positions and airpot counts of U.S. airports on a background of US states.
+					</p>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h3> Area Plot (IOWA Electricty) </h3>
+					<div id="vis2"></div>
+						<script type="text/javascript">
+						
+							var spec = {
+										  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+										  "config": {
+										    "view": {
+										    	"continuousHeight": 600,
+										    	"continuousWidth": 800
+										    	}
+										    },
+										    "width": 800,
+										    "height": 600,
+										    "data": {
+										    	"url": "https://vega.github.io/vega-datasets/data/iowa-electricity.csv"
+										    },
+										    "encoding": {
+										    	"color": {
+										    		"field": "source",
+										    		"type": "nominal"
+										    	},
+										    	"x": {
+										    		"field": "year",
+										    		"type": "ordinal"
+										    	},
+										    	"y": {
+										    		"field": "net_generation",
+										    		"type": "quantitative"
+										    	}
+										    },
+											"mark": "area"
+										};
+						
+							var opt = {"renderer": "canvas", "actions": false};  /* Options for the embedding */
+						
+							vegaEmbed("#vis2", spec, opt);
+						
+						</script>
+				</section>
+				<section>
+					<p style = "font-weight:bold;">Code Example</p>
+						<pre><code data-trim data-noescape>
+							source = data.cars()
+
+							# Configure the options common to all layers
+							brush = alt.selection(type='interval')
+							base = alt.Chart(source).add_selection(brush)
+
+							# Configure the points
+							points = base.mark_point().encode(
+							    x=alt.X('Miles_per_Gallon', title=''),
+							    y=alt.Y('Horsepower', title=''),
+							    color=alt.condition(brush, 'Origin', alt.value('grey'))
+							)
+
+							# Configure the ticks
+							tick_axis = alt.Axis(labels=False, domain=False, ticks=False)
+
+							x_ticks = base.mark_tick().encode(
+							    alt.X('Miles_per_Gallon', axis=tick_axis),
+							    alt.Y('Origin', title='', axis=tick_axis),
+							    color=alt.condition(brush, 'Origin', alt.value('lightgrey'))
+							)
+
+							y_ticks = base.mark_tick().encode(
+							    alt.X('Origin', title='', axis=tick_axis),
+							    alt.Y('Horsepower', axis=tick_axis),
+							    color=alt.condition(brush, 'Origin', alt.value('lightgrey'))
+							)
+
+							# Build the chart
+							y_ticks | (points & x_ticks)
+						</code></pre>
+				</section>
+				<section>
+					<p style = "font-weight:bold;">Interpretation of visualization</p>
+					<p> 
+						This plot displayed an area plot of different kinds of electricity generation access IOWA state. As we can see fossil fuel is still the main source to generate electricity, it took over almost 90 percent of the space and it's still growing after 2016. But we also glade to see that the use of nuclear energy and renewable energy is rising and getting close to 45% of the area.
+					</p>
+				</section>	
+			</section>
+		</div>
+	</div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/reveal.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/plugin/notes/notes.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/plugin/markdown/markdown.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/plugin/highlight/highlight.min.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+				slideNumber: 'c/t',
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+</body>
+
+</html>
