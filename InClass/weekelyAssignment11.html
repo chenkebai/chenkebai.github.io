@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- Loading Vega Dataset -->
+	<script src="https://cdn.jsdelivr.net/npm/vega@3"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vega-lite@2"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vega-embed@3"></script>
+	<!-- Theme used for charts -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/reset.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/reveal.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/theme/moon.min.css" id="theme">
+	<!-- Theme used for syntax highlighted code -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/plugin/highlight/monokai.min.css" id="highlight-theme">
+	<title>Weekly Assignment 11</title>
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<section data-auto-animate>
+				<h1>Altair Plot Showcase</h1>
+			</section>
+			<section>
+				<h1>Altair Plot Showcase</h1>
+				<h1>Editor Chenke Bai</h1>
+			</section>
+			<section>
+				<section>
+					<h3>Plot 1</h3>
+					<div id="vis"></div>
+					<script type="text/javascript">
+						var spec = {
+									"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}},
+			  						 "layer": [
+									   	{
+									      "data": {
+									        "url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/us-10m.json",
+									        "format": {"feature": "states", "type": "topojson"}
+									      },
+									      "mark": {"type": "geoshape", "fill": "lightgray", "stroke": "white"},
+									      "height": 300,
+									      "projection": {"type": "albersUsa"},
+									      "width": 500
+									    },
+									    {
+									      "data": {
+									        "url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/airports.csv"
+									      },
+									      "mark": "circle",
+									      "encoding": {
+									        "color": {"value": "steelblue"},
+									        "latitude": {"field": "latitude", "type": "quantitative"},
+									        "longitude": {"field": "longitude", "type": "quantitative"},
+									        "size": {
+									          "type": "quantitative",
+									          "field": "count",
+									          "title": "Number of Airports"
+									        },
+									        "tooltip": [
+									          {"type": "nominal", "field": "state"},
+									          {"type": "quantitative", "field": "count"}
+									        ]
+									      },
+									      "title": "Number of airports in US",
+									      "transform": [
+									        {
+									          "aggregate": [
+									            {"op": "mean", "field": "latitude", "as": "latitude"},
+									            {"op": "mean", "field": "longitude", "as": "longitude"},
+									            {"op": "count", "as": "count"}
+									          ],
+									          "groupby": ["state"]
+									        }
+									      ]
+									    }
+			  						 ],
+			  							"$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"
+									};
+									var opt = {"renderer": "canvas", "actions": false};  /* Options for the embedding */
+		
+									vegaEmbed("#vis", spec, opt);			
+					</script>
+				</section>
+				<section>
+					<p style = "font-weight:bold;">Code Example</p>
+						<pre><code data-trim data-noescape>
+							# US Air port Data
+							airports = data.airports.url
+							states = alt.topo_feature(data.us_10m.url, feature='states')
+
+							# US states background
+							background = alt.Chart(states).mark_geoshape(
+							    fill='lightgray',
+							    stroke='white'
+							).properties(
+							    width=500,
+							    height=300
+							).project('albersUsa')
+
+							# airport positions on background
+							points = alt.Chart(airports).transform_aggregate(
+							    latitude='mean(latitude)',
+							    longitude='mean(longitude)',
+							    count='count()',
+							    groupby=['state']
+							).mark_circle().encode(
+							    longitude='longitude:Q',
+							    latitude='latitude:Q',
+							    size=alt.Size('count:Q', title='Number of Airports'),
+							    color=alt.value('steelblue'),
+							    tooltip=['state:N','count:Q']
+							).properties(
+							    title='Number of airports in US'
+							)
+
+							background + points
+						</code></pre>
+				</section>
+			</section>
+			<section>
+				<h3> Scatter plot </h3>
+				<div id="vis"></div>
+					<script type="text/javascript">
+					
+						var spec = {
+									  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+									  "config": {
+									    "view": {
+									    	"continuousHeight": 600,
+									    	"continuousWidth": 800
+									    	}
+									    },
+									    "width": 800,
+									    "height": 600,
+									    "data": {
+									    	"url": "https://vega.github.io/vega-datasets/data/cars.json"
+									    },
+									    "encoding": {
+									    	"color": {
+									    		"field": "Origin",
+									    		"type": "nominal"
+									    	},
+									    	"x": {
+									    		"field": "Horsepower",
+									    		"type": "quantitative"
+									    	},
+									    	"y": {
+									    		"field": "Miles_per_Gallon",
+									    		"type": "quantitative"
+									    	}
+									    },
+										"mark": "point"
+									};
+					
+						var opt = {"renderer": "canvas", "actions": false};  /* Options for the embedding */
+					
+						vegaEmbed("#vis", spec, opt);
+					
+					</script>
+			</section>
+		</div>
+	</div>
+
+</body>
+
+</html>
