@@ -3,8 +3,8 @@
 <head>
 	<!-- Loading Vega Dataset -->
 	<script src="https://cdn.jsdelivr.net/npm/vega@3"></script>
-	<script src="https://cdn.jsdelivr.net/npm/vega-lite@2"></script>
-	<script src="https://cdn.jsdelivr.net/npm/vega-embed@3"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vega-embed@5"></script>
 	<!-- Theme used for charts -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/reset.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/reveal.min.css">
@@ -30,51 +30,114 @@
 					<div id="vis"></div>
 					<script type="text/javascript">
 						var spec = {
-									"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}},
-			  						 "layer": [
-									   	{
-									      "data": {
-									        "url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/us-10m.json",
-									        "format": {"feature": "states", "type": "topojson"}
-									      },
-									      "mark": {"type": "geoshape", "fill": "lightgray", "stroke": "white"},
-									      "height": 300,
-									      "projection": {"type": "albersUsa"},
-									      "width": 500
+									"$schema": "https://vega.github.io/schema/vega/v5.json",
+									  "background": "white",
+									  "padding": 5,
+									  "width": 500,
+									  "height": 300,
+									  "title": {"text": "Number of airports in US", "frame": "group"},
+									  "style": "cell",
+									  "data": [
+									    {
+									      "name": "source_0",
+									      "url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/us-10m.json",
+									      "format": {"feature": "states", "type": "topojson"}
 									    },
 									    {
-									      "data": {
-									        "url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/airports.csv"
-									      },
-									      "mark": "circle",
-									      "encoding": {
-									        "color": {"value": "steelblue"},
-									        "latitude": {"field": "latitude", "type": "quantitative"},
-									        "longitude": {"field": "longitude", "type": "quantitative"},
-									        "size": {
-									          "type": "quantitative",
-									          "field": "count",
-									          "title": "Number of Airports"
-									        },
-									        "tooltip": [
-									          {"type": "nominal", "field": "state"},
-									          {"type": "quantitative", "field": "count"}
-									        ]
-									      },
-									      "title": "Number of airports in US",
+									      "name": "source_1",
+									      "url": "https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/airports.csv",
+									      "format": {"type": "csv", "delimiter": ","},
 									      "transform": [
 									        {
-									          "aggregate": [
-									            {"op": "mean", "field": "latitude", "as": "latitude"},
-									            {"op": "mean", "field": "longitude", "as": "longitude"},
-									            {"op": "count", "as": "count"}
-									          ],
-									          "groupby": ["state"]
+									          "type": "aggregate",
+									          "groupby": ["state"],
+									          "ops": ["mean", "mean", "count"],
+									          "fields": ["latitude", "longitude", null],
+									          "as": ["latitude", "longitude", "count"]
+									        },
+									        {
+									          "type": "geojson",
+									          "fields": ["longitude", "latitude"],
+									          "signal": "layer_1_geojson_0"
+									        },
+									        {
+									          "type": "geopoint",
+									          "projection": "projection",
+									          "fields": ["longitude", "latitude"],
+									          "as": ["layer_1_x", "layer_1_y"]
+									        },
+									        {
+									          "type": "filter",
+									          "expr": "isValid(datum[\"count\"]) && isFinite(+datum[\"count\"])"
 									        }
 									      ]
 									    }
-			  						 ],
-			  							"$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"
+									  ],
+									  "projections": [
+									    {
+									      "name": "projection",
+									      "size": {"signal": "[width, height]"},
+									      "fit": {"signal": "[data('source_0'), layer_1_geojson_0]"},
+									      "type": "albersUsa"
+									    }
+									  ],
+									  "marks": [
+									    {
+									      "name": "layer_0_marks",
+									      "type": "shape",
+									      "style": ["geoshape"],
+									      "from": {"data": "source_0"},
+									      "encode": {
+									        "update": {"fill": {"value": "lightgray"}, "stroke": {"value": "white"}}
+									      },
+									      "transform": [{"type": "geoshape", "projection": "projection"}]
+									    },
+									    {
+									      "name": "layer_1_marks",
+									      "type": "symbol",
+									      "style": ["circle"],
+									      "from": {"data": "source_1"},
+									      "encode": {
+									        "update": {
+									          "opacity": {"value": 0.7},
+									          "fill": {"value": "steelblue"},
+									          "tooltip": {
+									            "signal": "{\"state\": ''+datum[\"state\"], \"count\": format(datum[\"count\"], \"\")}"
+									          },
+									          "x": {"field": "layer_1_x"},
+									          "y": {"field": "layer_1_y"},
+									          "size": {"scale": "size", "field": "count"},
+									          "shape": {"value": "circle"}
+									        }
+									      }
+									    }
+									  ],
+									  "scales": [
+									    {
+									      "name": "size",
+									      "type": "linear",
+									      "domain": {"data": "source_1", "field": "count"},
+									      "range": [0, 361],
+									      "zero": true
+									    }
+									  ],
+									  "legends": [
+									    {
+									      "title": "Number of Airports",
+									      "size": "size",
+									      "gradientLength": {"signal": "clamp(height, 64, 200)"},
+									      "symbolType": "circle",
+									      "encode": {
+									        "symbols": {
+									          "update": {
+									            "fill": {"value": "steelblue"},
+									            "opacity": {"value": 0.7},
+									            "stroke": {"value": "transparent"}
+									          }
+									        }
+									      }
+									    }
+									  ]
 									};
 									var opt = {"renderer": "canvas", "actions": false};  /* Options for the embedding */
 		
@@ -116,47 +179,96 @@
 							background + points
 						</code></pre>
 				</section>
+				<section>
+					<p style = "font-weight:bold;">Interpretation of visualization</p>
+					<p>
+						This is a layered geographic visualization that shows the positions of US airports on a background of US states.
+					</p>
+				</section>
 			</section>
 			<section>
-				<h3> Scatter plot </h3>
-				<div id="vis"></div>
-					<script type="text/javascript">
-					
-						var spec = {
-									  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
-									  "config": {
-									    "view": {
-									    	"continuousHeight": 600,
-									    	"continuousWidth": 800
-									    	}
-									    },
-									    "width": 800,
-									    "height": 600,
-									    "data": {
-									    	"url": "https://vega.github.io/vega-datasets/data/cars.json"
-									    },
-									    "encoding": {
-									    	"color": {
-									    		"field": "Origin",
-									    		"type": "nominal"
-									    	},
-									    	"x": {
-									    		"field": "Horsepower",
-									    		"type": "quantitative"
-									    	},
-									    	"y": {
-									    		"field": "Miles_per_Gallon",
-									    		"type": "quantitative"
-									    	}
-									    },
-										"mark": "point"
-									};
-					
-						var opt = {"renderer": "canvas", "actions": false};  /* Options for the embedding */
-					
-						vegaEmbed("#vis", spec, opt);
-					
-					</script>
+				<section>
+					<h3> Scatter plot </h3>
+					<div id="vis"></div>
+						<script type="text/javascript">
+						
+							var spec = {
+										  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+										  "config": {
+										    "view": {
+										    	"continuousHeight": 600,
+										    	"continuousWidth": 800
+										    	}
+										    },
+										    "width": 800,
+										    "height": 600,
+										    "data": {
+										    	"url": "https://github.com/altair-viz/vega_datasets/blob/master/vega_datasets/_data/iowa-electricity.csv"
+										    },
+										    "encoding": {
+										    	"color": {
+										    		"field": "Origin",
+										    		"type": "nominal"
+										    	},
+										    	"x": {
+										    		"field": "Horsepower",
+										    		"type": "quantitative"
+										    	},
+										    	"y": {
+										    		"field": "Miles_per_Gallon",
+										    		"type": "quantitative"
+										    	}
+										    },
+											"mark": "point"
+										};
+						
+							var opt = {"renderer": "canvas", "actions": false};  /* Options for the embedding */
+						
+							vegaEmbed("#vis", spec, opt);
+						
+						</script>
+				</section>
+				<section>
+					<p style = "font-weight:bold;">Code Example</p>
+						<pre><code data-trim data-noescape>
+							source = data.cars()
+
+							# Configure the options common to all layers
+							brush = alt.selection(type='interval')
+							base = alt.Chart(source).add_selection(brush)
+
+							# Configure the points
+							points = base.mark_point().encode(
+							    x=alt.X('Miles_per_Gallon', title=''),
+							    y=alt.Y('Horsepower', title=''),
+							    color=alt.condition(brush, 'Origin', alt.value('grey'))
+							)
+
+							# Configure the ticks
+							tick_axis = alt.Axis(labels=False, domain=False, ticks=False)
+
+							x_ticks = base.mark_tick().encode(
+							    alt.X('Miles_per_Gallon', axis=tick_axis),
+							    alt.Y('Origin', title='', axis=tick_axis),
+							    color=alt.condition(brush, 'Origin', alt.value('lightgrey'))
+							)
+
+							y_ticks = base.mark_tick().encode(
+							    alt.X('Origin', title='', axis=tick_axis),
+							    alt.Y('Horsepower', axis=tick_axis),
+							    color=alt.condition(brush, 'Origin', alt.value('lightgrey'))
+							)
+
+							# Build the chart
+							y_ticks | (points & x_ticks)
+						</code></pre>
+				</section>
+				<section>
+					<p style = "font-weight:bold;">Interpretation of visualization</p>
+					<p> 
+						This plot displaied how to make the dot-dash plot presented in Edward Tufte’s Visual Display of Quantitative Information. Based on a JavaScript implementation by g3o2.
+					</p>
+				</section>	
 			</section>
 		</div>
 	</div>
