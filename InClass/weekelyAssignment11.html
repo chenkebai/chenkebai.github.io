@@ -26,7 +26,7 @@
 			</section>
 			<section>
 				<section>
-					<h3>Plot 1</h3>
+					<h3>US Air Port in each state</h3>
 					<div id="vis"></div>
 					<script type="text/javascript">
 						var spec = {
@@ -188,7 +188,7 @@
 			</section>
 			<section>
 				<section>
-					<h3> Scatter plot </h3>
+					<h3> Area Plot (IOWA Electricty) </h3>
 					<div id="vis2"></div>
 						<script type="text/javascript">
 						
@@ -203,23 +203,23 @@
 										    "width": 800,
 										    "height": 600,
 										    "data": {
-										    	"url": "https://github.com/altair-viz/vega_datasets/blob/master/vega_datasets/_data/iowa-electricity.csv"
+										    	"url": "https://vega.github.io/vega-datasets/data/iowa-electricity.csv"
 										    },
 										    "encoding": {
 										    	"color": {
-										    		"field": "Origin",
+										    		"field": "source",
 										    		"type": "nominal"
 										    	},
 										    	"x": {
-										    		"field": "Horsepower",
-										    		"type": "quantitative"
+										    		"field": "year",
+										    		"type": "ordinal"
 										    	},
 										    	"y": {
-										    		"field": "Miles_per_Gallon",
+										    		"field": "net_generation",
 										    		"type": "quantitative"
 										    	}
 										    },
-											"mark": "point"
+											"mark": "area"
 										};
 						
 							var opt = {"renderer": "canvas", "actions": false};  /* Options for the embedding */
@@ -266,7 +266,7 @@
 				<section>
 					<p style = "font-weight:bold;">Interpretation of visualization</p>
 					<p> 
-						This plot displaied how to make the dot-dash plot presented in Edward Tufte’s Visual Display of Quantitative Information. Based on a JavaScript implementation by g3o2.
+						This plot displayed an area plot of different kinds of electricity generation access IOWA state. As we can see fossil fuel is still the main source to generate electricity, it took over almost 90 percent of the space and it's still growing after 2016. But we also glade to see that the use of nuclear energy and renewable energy is rising and getting close to 45% of the area.
 					</p>
 				</section>	
 			</section>
