@@ -1,0 +1,206 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Weekly Assignment 12</title>
+
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/reset.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/reveal.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/theme/moon.min.css" id="theme">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/plugin/highlight/monokai.min.css" id="highlight-theme">
+
+		<!-- Loading Vega-->
+		<script src="https://cdn.jsdelivr.net/npm/vega@5.19.1"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vega-lite@5.0.0"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vega-embed@6.15.1"></script>
+
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h2> Weekly Assignment 12 </h2>
+					<h3> Vega Data Set </h3>
+					<p style="color:#CFB87C; font-weight:bold;">Chenke(Alex) Bai</p>
+				</section>
+				<section>
+					<section>
+						<h3> Plot_1 Seattle Weather </h3>
+						<div id="vis-point_plot_seattle"></div>
+						<script type="text/javascript">
+							var spec = {
+								"$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+								"width": 800,
+								"height": 400,
+								"data": {
+									"url": "https://vega.github.io/vega-datasets/data/seattle-weather.csv"
+								},
+								"mark": "point",
+								"encoding": {
+									"x": {
+										"type": "temporal", 
+										"field": "date",
+										"axis": {
+											"titleFontSize": 15
+										}
+									},
+									"y": {
+										"field": "temp_max",
+										"type": "quantitative",
+										"axis": {
+											"titleFontSize": 15
+										}
+									},
+									"color": {
+										"field": "weather",
+										"type": "nominal"
+									}
+								}
+							};
+							var opt = {"renderer": "canvas", "actions": false};
+							vegaEmbed("#vis-point_plot_seattle", spec, opt);
+						</script>
+					</section>
+					<section>
+						<h3> Plot Interpretation </h3>
+						<p>
+							This plot shows the highest tempurture in each daay and the actual weather of that day. X-axis is representing the time in Month and Year. each unit appers to be quarterly.
+						</p>
+					</section>
+					<section>
+						<h3> Code Example </h3>
+						<pre><code data-trim data-noescape>
+							var spec = {
+								"$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+								"width": 800,
+								"height": 400,
+								"data": {
+									"url": "https://vega.github.io/vega-datasets/data/seattle-weather.csv"
+								},
+								"mark": "point",
+								"encoding": {
+									"x": {
+										"type": "temporal", 
+										"field": "date",
+										"axis": {
+											"titleFontSize": 15
+										}
+									},
+									"y": {
+										"field": "temp_max",
+										"type": "quantitative",
+										"axis": {
+											"titleFontSize": 15
+										}
+									},
+									"color": {
+										"field": "weather",
+										"type": "nominal"
+									}
+								}
+							};
+						</code></pre>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h3> Plot_2 Disasters & Death </h3>
+						<div id="vis-point_plot_Disasters"></div>
+						<script type="text/javascript">
+							var spec = {
+								"$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+								"width": 800,
+								"height": 400,
+								"data": {
+									"url": "https://vega.github.io/vega-datasets/data/disasters.csv"
+								},
+								"mark": "bar",
+								"encoding": {
+									"x": {
+										"type": "temporal", 
+										"field": "Year",
+										"axis": {
+											"titleFontSize": 15
+										}
+									},
+									"y": {
+										"field": "Deaths",
+										"type": "quantitative",
+										"axis": {
+											"titleFontSize": 15
+										}
+									},
+									"color": {
+										"field": "Entity",
+										"type": "nominal"
+									}
+								}
+							};
+							var opt = {"renderer": "canvas", "actions": false};
+							vegaEmbed("#vis-point_plot_Disasters", spec, opt);
+						</script>
+					</section>
+					<section>
+						<h3> Plot Interpretation </h3>
+						<p>
+							This plot shows the the death counts in each year, and relates to each disaster that occured in that year. As we can see from the bar plot. natural disaster like Flood kills a lot of people, then the Drought seems to kill many people, which the death toll is right under Flood. Then we can see in 1905 to 1925 a lot people are dead due to Epidemic.
+						</p>
+					</section>
+					<section>
+						<h3> Code Example </h3>
+						<pre><code data-trim data-noescape>
+							var spec = {
+								"$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+								"width": 800,
+								"height": 400,
+								"data": {
+									"url": "https://vega.github.io/vega-datasets/data/disasters.csv"
+								},
+								"mark": "bar",
+								"encoding": {
+									"x": {
+										"type": "temporal", 
+										"field": "Year",
+										"axis": {
+											"titleFontSize": 15
+										}
+									},
+									"y": {
+										"field": "Deaths",
+										"type": "quantitative",
+										"axis": {
+											"titleFontSize": 15
+										}
+									},
+									"color": {
+										"field": "Entity",
+										"type": "nominal"
+									}
+								}
+							};
+						</code></pre>
+					</section>
+				</section>
+
+			</div>
+		</div>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/reveal.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.1.0/plugin/highlight/highlight.min.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+				slideNumber: 'h/v',
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealHighlight ]
+			});
+		</script>
+	</body>
+</html>
