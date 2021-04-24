@@ -5,9 +5,16 @@
 
 		<meta charset="utf-8">
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <meta name="description" content="">
+        <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+        <meta name="generator" content="Hugo 0.80.0">
 
 	    <!-- Bootstrap CSS -->
 	    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+	    <!-- Bootstrap core CSS -->
+        <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Custom styles for this template -->
+        <link href="cover.css" rel="stylesheet">
 
 	    <!-- Loading Vega-->
 		<script src="https://cdn.jsdelivr.net/npm/vega@5.19.1"></script>
@@ -26,6 +33,22 @@
 		</style>
 	</head>
 
+	<body class="d-flex h-100 text-center text-white bg-dark">
+        <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+            <header class="mb-auto">
+                <div>
+                  <h3><a class = "navbar-brand" href = "homePage.html">Chenke Bai</a></h3>
+                  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                    <a class="nav-link active" aria-current="page" href="homePage.html">Home</a>
+                    <a class="nav-link" href="resume.html">DogeCoin Essay</a>
+                    <a class="nav-link" href="portfolio.html">plot_1 & interpretation</a>
+                    <a class="nav-link" href="contact.html">plot_2 & interpretation</a>
+                  </nav>
+                </div>
+            </header>
+    	</div>
+    </body>
+
 	<title>Plot 1 Doge Coin to USD 2020-2021</title>
 	<h2>Plot 1 Doge Coin to USD 2020-2021</h2>
 	<div id ="doge-usd-cny-close"></div>
@@ -33,23 +56,50 @@
 		var spec = {
 			"$schema": "https://vega.github.io/schema/vega-lite/v5.json",
 			"width": 400,
-			"height": 800,
+			"height": 200,
+			"hconcat":[{
 			"data": {
-				"url": "https://raw.githubusercontent.com/chenkebai/chenkebai.github.io/master/Assignment/wa13/DOGE-USD.csv"
-			},
-			"mark": "line"
+					"url": "https://raw.githubusercontent.com/chenkebai/chenkebai.github.io/master/Assignment/wa13/DOGE-USD.csv"
+					},
+			"mark": "line",
+			"title": "DOGE-USD",
 			"encoding":{
-			"x": {
-				"filed": "Date",
-				"timeUnit": "yearmonthdate"
-			},
-			"y": {
-				"field": "Close",
-				"type": "quantitative"
-			}
-		}
+				"x":{
+						"field":"Date",
+						"type":"temporal"
+					},
+				"y":{
+						"field":"Close",
+						"type":"quantitative"
+					},
+				"color": {"value":"red"}
+					}
+				},
+			{
+			"data": {
+					"url": "https://raw.githubusercontent.com/chenkebai/chenkebai.github.io/master/Assignment/wa13/BTC-USD.csv"
+					},
+			"mark": "line",
+			"title": "BIT-USD",
+			"encoding":{
+						"x":{
+								"field":"Date",
+								"type":"temporal"
+							},
+						"y":{
+								"field":"Close",
+								"type":"quantitative"
+							},
+						"color": {"value":"green"}
+						}
+			}]
 	},
 	var opt = {"renderer": "canvas", "actions": false};
 	vegaEmbed("#doge-usd-cny-close", spec, opt);
 	</script>
+
+	<h3 class= "centerOperation"> Plot Interpretation </h3>
+	<p>
+		As we can see that in general Dogecoin is much cheaper than Bitcoin from the plot above. I think the reason behind this is because Dogecoin is not a very effective store of value. This is chiefly because there is no lifetime cap on the number of Dogecoins that may be created by mining—meaning that the cryptocurrency is highly inflationary, by design. Aso if we think about the supply and demand the Dogecoin has been experiencing some serious heavy "mining" so the total number of coins in circulation is astronomically high. Also according to the report from official, that there are a total number of 130 billion Dogecoin in circulation. Each minute, 10,000 more coins are added to the Doge network by the miners. At this rate, 5.256 billion coins are added to the Doge network per year. In contrast, Bitcoin has a total supply cap of 21 million, and so far, 18.5 million coins have been mined, and the last Bitcoin will be mined in 2140. Compared to Bitcoin, Doge has 7,000X more supply. In which this summary explains why Dogecoin's y-axis rang units are fractions compare to Bitcoin. My question here will be people mine less Bitcoin than Dogecoin is that caused by it is harder to mine bitcoin? I will do some more research on that in my five-paragraph essay.
+	</p>
 </html>
