@@ -34,7 +34,22 @@
 			"$schema": "https://vega.github.io/schema/vega-lite/v5.json",
 			"width": 400,
 			"height": 800,
-			"data"
+			"data": {
+				"url": "https://raw.githubusercontent.com/chenkebai/chenkebai.github.io/master/Assignment/wa13/DOGE-USD.csv"
+			},
+			"mark": "line"
+			"encoding":{
+			"x": {
+				"filed": "Date",
+				"timeUnit": "yearmonthdate"
+			},
+			"y": {
+				"field": "Close",
+				"type": "quantitative"
+			}
 		}
+	},
+	var opt = {"renderer": "canvas", "actions": false};
+	vegaEmbed("#doge-usd-cny-close", spec, opt);
 	</script>
 </html>

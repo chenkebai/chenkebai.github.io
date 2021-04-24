@@ -1442,7 +1442,25 @@
 							"encoding": {
 								"x": {
 									"field": "Week Ending Date",
-									"timeUnit": "yearmonthdate"
+									"timeUnit": "width": 600,
+							"height": 400,
+							"data": {
+								"url": "https://vega.github.io/vega-datasets/data/birdstrikes.csv"
+							},
+							"mark": "rect",
+							"encoding": {
+								"x": {
+									"field": "Time of Day",
+                  "type": "nominal"
+								},
+								"y":{
+                  "field": "Phase of flight",
+									"type": "nominal"
+								},
+                "color": {
+                "aggregate": "count"
+                }
+							}
 								},
 								"y": {
 									"field": "COVID-19 (U071, Multiple Cause of Death)",
