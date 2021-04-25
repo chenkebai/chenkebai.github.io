@@ -42,7 +42,7 @@
                     <a class="nav-link active" aria-current="page" href="Assignment/wa13/weeklyAssignment_13.html">Home</a>
                     <a class="nav-link" href="resume.html">DogeCoin Essay</a>
                     <a class="nav-link" href="Assignment/wa13/wa13_plot_1.html">plot_1 & interpretation</a>
-                    <a class="nav-link" href="contact.html">plot_2 & interpretation</a>
+                    <a class="nav-link" href="Assignment/wa13/wa13_plot_1.html">plot_2 & interpretation</a>
                   </nav>
                 </div>
             </header>
@@ -50,51 +50,98 @@
 
     <main class="px-3">
     	<title>Plot 2 Dogecoin to USD vs Bitcoin to USD</title>
-		<h2>Plot 2 Dogecoin to USD vs Bitcoin to USD</h2>
+		<h2>Plot 2 Dogecoin vs Bitcoin interms Avg Difficulity & Generated Coins</h2>
 		<div id ="doge-bit_diff"></div>
 		<script type="text/javascript">
 		var spec = {
 			"$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-			"width": 400,
+   			"width": 400,
 			"height": 200,
 			"hconcat":[{
 			"data": {
-					"url": "https://raw.githubusercontent.com/chenkebai/chenkebai.github.io/master/Assignment/wa13/DOGE-USD_1y.csv"
+					"url": "https://raw.githubusercontent.com/chenkebai/chenkebai.github.io/master/Assignment/wa13/dogecoin_csv.csv"
 					},
-			"mark": "area",
-			"title": "DOGE-USD",
+			"mark": "line",
+			"title": "DOGE Average Difficulity",
 			"encoding":{
 				"x":{
-						"field":"Date",
+						"field":"date",
 						"type":"temporal"
 					},
 				"y":{
-						"field":"Volume",
+						"field":"averageDifficulty",
 						"type":"quantitative"
 					},
 				"color": {"value":"red"}
 					}
-				},
+			},
+			{
+				"data": {
+					"url": "https://raw.githubusercontent.com/chenkebai/chenkebai.github.io/master/Assignment/wa13/dogecoin_csv.csv"
+					},
+			"mark": "line",
+			"title": "DOGE Generated Coins",
+			"encoding":{
+				"x":{
+						"field":"date",
+						"type":"temporal"
+					},
+				"y":{
+						"field":"generatedCoins",
+						"type":"quantitative"
+					},
+				"color": {"value":"red"}
+					}
+			},
 			{
 			"data": {
-					"url": "https://raw.githubusercontent.com/chenkebai/chenkebai.github.io/master/Assignment/wa13/BTC-USD.csv"
+					"url": "https://raw.githubusercontent.com/chenkebai/chenkebai.github.io/master/Assignment/wa13/bitcoin_csv.csv"
 					},
-			"mark": "area",
-			"title": "BIT-USD",
+			"mark": "line",
+			"title": "BIT Average Difficulity",
 			"encoding":{
 						"x":{
-								"field":"Date",
+								"field":"date",
 								"type":"temporal"
 							},
 						"y":{
-								"field":"Volume",
+								"field":"averageDifficulty",
+								"type":"quantitative"
+							},
+						"color": {"value":"green"}
+						}
+
+			},
+			{
+				"data": {
+					"url": "https://raw.githubusercontent.com/chenkebai/chenkebai.github.io/master/Assignment/wa13/bitcoin_csv.csv"
+					},
+			"mark": "line",
+			"title": "BIT Generated Coins",
+			"encoding":{
+						"x":{
+								"field":"date",
+								"type":"temporal"
+							},
+						"y":{
+								"field":"generatedCoins",
 								"type":"quantitative"
 							},
 						"color": {"value":"green"}
 						}
 			}]
-	};
-	var opt = {"renderer": "canvas", "actions": false};
-	vegaEmbed("#doge-bit_diff", spec, opt);
-	</script>
+		};
+		var opt = {"renderer": "canvas", "actions": false};
+		vegaEmbed("#doge-bit_diff", spec, opt);
+		</script>
     </main>
+
+    <h3 class= "centerOperation"> Plot Interpretation </h3>
+		<p>
+			As we can see that in general, the average difficulty for mining Bitcoin is much much harder than mining the Dogecoins in terms of the range of y-axis on the average difficulty of mining both Bitcoin and Dogecoin. But why that is the case? First, we need to go back to the design purpose of both coins. When scientists first designed Bitcoin they meant to make this type of cryptocurrency a better currency for money transactions. Dogecoin is more inspired by a joke meme created from the internet. According to journalist David Hamilton from Bitcoinlightning.com "Despite their technical similarities, these two projects entered the market with two very different purposes. Bitcoin was created to provide the world with a viable alternative to the current financial system. The coin’s coding and whitepaper are filled with indicators of this purpose."Dogecoin didn’t enter the market with such grand ideas in mind. Markus has stated that initially the coin was created as a joke. Like Bitcoin, his intentions are woven within the coin’s features. For example, the name Dogecoin and its now-famous Shiba Inu logo was a reference to a popular meme at the time. The coin didn’t originate with some divine purpose in mind, but rather, to make people smile and get a good laugh out of the select people they thought would ever see the project." There fore from the design purpose perspective you can see that the Y-axis range on the DOGE generated coins is much larger than the BIT Generated Coins. Because it requires more energy and time to mine bitcoin. But how exactly is average difficulty entails? According to the explanation from blockchain.com "The difficulty is a measure of how difficult it is to mine a Bitcoin block, or in more technical terms, to find a hash below a given target. A high difficulty means that it will take more computing power to mine the same number of blocks, making the network more secure against attacks. The difficulty adjustment is directly related to the total estimated mining power estimated in the Total Hash Rate (TH/s) chart."
+		</p>
+		<footer class="mt-auto text-white-50">
+    <p>Cover template for <a href="https://getbootstrap.com/" class="text-white">Bootstrap</a>, by <a href="https://twitter.com/mdo" class="text-white">@mdo</a>.</p>
+  </footer>
+	</div>
+</html>
