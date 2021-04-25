@@ -52,4 +52,49 @@
     	<title>Plot 1 Dogecoin to USD vs Bitcoin to USD 2020-2021</title>
 		<h2>Plot 1 Dogecoin to USD vs Bitcoin to USD 2020-2021</h2>
 		<div id ="doge-bit_diff"></div>
+		<script type="text/javascript">
+		var spec = {
+			"$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+			"width": 400,
+			"height": 200,
+			"hconcat":[{
+			"data": {
+					"url": "https://raw.githubusercontent.com/chenkebai/chenkebai.github.io/master/Assignment/wa13/DOGE-USD_1y.csv"
+					},
+			"mark": "area",
+			"title": "DOGE-USD",
+			"encoding":{
+				"x":{
+						"field":"Date",
+						"type":"temporal"
+					},
+				"y":{
+						"field":"Volume",
+						"type":"quantitative"
+					},
+				"color": {"value":"red"}
+					}
+				},
+			{
+			"data": {
+					"url": "https://raw.githubusercontent.com/chenkebai/chenkebai.github.io/master/Assignment/wa13/BTC-USD.csv"
+					},
+			"mark": "area",
+			"title": "BIT-USD",
+			"encoding":{
+						"x":{
+								"field":"Date",
+								"type":"temporal"
+							},
+						"y":{
+								"field":"Volume",
+								"type":"quantitative"
+							},
+						"color": {"value":"green"}
+						}
+			}]
+	};
+	var opt = {"renderer": "canvas", "actions": false};
+	vegaEmbed("#doge-bit-usd-close", spec, opt);
+	</script>
     </main>
